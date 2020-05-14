@@ -28,5 +28,5 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.2.7.RELEASE'
 
     // https://mvnrepository.com/artifact/net.sf.mpxj/mpxj
-    compile group: 'net.sf.mpxj', name: 'mpxj', version: '5.1.4'
+    compile group: 'net.sf.mpxj', name: 'mpxj', version: '8.0.8'
 }
