@@ -29,4 +29,20 @@ dependencies {
 
     // https://mvnrepository.com/artifact/net.sf.mpxj/mpxj
     compile group: 'net.sf.mpxj', name: 'mpxj', version: '8.0.8'
+
+    // https://mvnrepository.com/artifact/org.hashids/hashids
+    compile group: 'org.hashids', name: 'hashids', version: '1.0.1'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-orm
+    compile group: 'org.springframework', name: 'spring-orm', version: '5.2.6.RELEASE'
+
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.15.Final'
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-dbcp
+    compile group: 'org.apache.tomcat', name: 'tomcat-dbcp', version: '9.0.35'
+
+    // https://mvnrepository.com/artifact/com.h2database/h2
+    compile group: 'com.h2database', name: 'h2', version: '1.4.200'
+
 }
