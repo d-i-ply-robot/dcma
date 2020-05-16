@@ -31,6 +31,7 @@ public class CategoryController {
 
         return "categories";
 
+
     }
 
     @RequestMapping("/categories/{id}")
