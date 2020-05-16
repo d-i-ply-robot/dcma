@@ -7,6 +7,9 @@ public class Program {
     private ProjectFile project;
     private String user;
     private String title;
+    private String string;
+    private int categoryId;
+    private Category category;
 
     @Override
     public String toString() {
@@ -19,12 +22,17 @@ public class Program {
 
     public Program(ProjectFile project) {
         this.project = project;
-    }
+        this.string = this.toString();
+            }
 
-    public Program(ProjectFile project, String user, String title) {
+    public Program(ProjectFile project, String user, String title, int categoryId) {
         this.project = project;
         this.user = user;
         this.title = title;
+        this.string = toString();
+        this.categoryId = categoryId;
+
+        //this.category = new Category(categoryId);
     }
 
     public ProjectFile getProject() {
@@ -49,5 +57,21 @@ public class Program {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getString() {
+        return string;
+    }
+
+    public void setString(String string) {
+        this.string = string;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }

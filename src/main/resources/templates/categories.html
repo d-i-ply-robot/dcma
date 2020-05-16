@@ -8,11 +8,11 @@
     <title>DCMA Program Checker</title>
 </head>
 <body>
-<h1>Programs Available</h1>
+<h1>Categories Available</h1>
 
 <ul>
-    <li th:each="program : ${programs}">
-        <a th:href="@{'/programs/' + ${program.title}}" th:text="${program.title}">program title</a>
+    <li th:each="category : ${categories}">
+        <a th:href="@{'/categories/' + ${category.name}}" th:text="${category.name}">category name</a>
     </li>
 </ul>
 
