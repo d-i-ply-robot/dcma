@@ -35,7 +35,7 @@ public class CategoryController {
     }
 
     @RequestMapping("/categories/{id}")
-    private String listCategories(@PathVariable int id, ModelMap modelMap){
+    private String listCategories(@PathVariable Long id, ModelMap modelMap){
 
         Category category = categoryRepository.getCatergoryById(id);
 

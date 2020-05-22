@@ -10,12 +10,12 @@ import java.util.List;
 public class CategoryRepository {
 
     private static final  List<Category> categoryRepository = Arrays.asList(
-            new Category(1, "Streetscape"),
-            new Category(2, "Motroway-widening"),
-            new Category(3, "Trenchless-pipeline"),
-            new Category(4, "Developement"),
-            new Category(5, "Bridge"),
-            new Category(5, "Earthworks"));
+            new Category(1L, "Streetscape"),
+            new Category(2L, "Motroway-widening"),
+            new Category(3L, "Trenchless-pipeline"),
+            new Category(4L, "Developement"),
+            new Category(5L, "Bridge"),
+            new Category(5L, "Earthworks"));
 
     public List<Category> getCategoryRepository() {
         return categoryRepository;
@@ -31,10 +31,10 @@ public class CategoryRepository {
         return null;
     }
 
-    public Category getCatergoryById(int id){
+    public Category getCatergoryById(Long id){
 
         for(Category category: categoryRepository){
-            if(category.getId() ==id) {
+            if(category.getId().equals(id)) {
                 return category;
             }
         }

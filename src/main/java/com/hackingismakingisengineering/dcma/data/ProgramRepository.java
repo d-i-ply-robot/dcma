@@ -35,12 +35,12 @@ public class ProgramRepository {
         return allPrograms;
     }
 
-    public List<Program> getProgramByCategoryId(int id) {
+    public List<Program> getProgramByCategoryId(Long id) {
 
         List<Program> programsInCategory = new ArrayList<>();
 
         for (Program program : allPrograms) {
-            if (id == program.getCategoryId()) {
+            if (id.equals(program.getCategoryId())) {
                 programsInCategory.add(program);
             }
 

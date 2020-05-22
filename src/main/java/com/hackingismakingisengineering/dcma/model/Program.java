@@ -2,13 +2,29 @@ package com.hackingismakingisengineering.dcma.model;
 
 import net.sf.mpxj.ProjectFile;
 
+import javax.persistence.*;
+
+@Entity //JPA annotation on POJOS for ORM
 public class Program {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //sequentially assigned IDs starting w. 1
+    private Long id;
+
+
+    @Transient // This excludes the project from the DB.
     private ProjectFile project;
+
+
     private String user;
     private String title;
     private String string;
     private int categoryId;
+
+    @Lob //Large object
+    private byte[] bytes;
+
+    @ManyToOne
     private Category category;
 
     @Override
@@ -20,10 +36,12 @@ public class Program {
                 '}';
     }
 
+
     public Program(ProjectFile project) {
         this.project = project;
         this.string = this.toString();
-            }
+
+        }
 
     public Program(ProjectFile project, String user, String title, int categoryId) {
         this.project = project;

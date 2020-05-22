@@ -1,11 +1,22 @@
 package com.hackingismakingisengineering.dcma.model;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class Category {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //sequentially assigned IDs starting w. 1
+    private Long id;
+
     private String name;
 
-    public Category(int id, String name) {
+    @OneToMany(mappedBy = "category")
+    private List<Program> programList = new ArrayList<>();
+
+    public Category(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -18,11 +29,11 @@ public class Category {
                 '}';
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
