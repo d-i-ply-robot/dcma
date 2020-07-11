@@ -23,6 +23,7 @@ public class DataConfig {
     @Bean
     public LocalSessionFactoryBean sessionFactoryBean(){
 
+
         Resource resource = new ClassPathResource("hibernate.cfg.xml");
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setConfigLocation(resource);
@@ -32,6 +33,7 @@ public class DataConfig {
         sessionFactoryBean.setDataSource(dataSource());
 
         return sessionFactoryBean;
+
     }
 
     @Bean

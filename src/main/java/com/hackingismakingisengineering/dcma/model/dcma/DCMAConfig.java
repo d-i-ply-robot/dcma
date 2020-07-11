@@ -1,4 +1,4 @@
-package com.hackingismakingisengineering.dcma.model;
+package com.hackingismakingisengineering.dcma.model.dcma;
 
 import net.sf.mpxj.Duration;
 

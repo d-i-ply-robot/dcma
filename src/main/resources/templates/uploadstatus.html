@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <!--th:href="@{/app.css} this tells the timeleaf engine to generate a URL to the css file  -->
+    <link rel="stylesheet" th:href="@{/app.css}"/>
+    <title>Upload Status</title>
+</head>
+<body>
+<h1>Upload Status</h1>
+
+<div th:if="${msg}">
+    <span th:text="${msg}"></span>
+
+</div>
+
+<!--
+<ul>
+    <li th:each="program : ${programs}">
+        <a th:href="@{'/programs/' + ${program.title}}" th:text="${program.title}">program title</a>
+    </li>
+</ul>
+-->
+
+</body>
+</html>

@@ -1,21 +1,15 @@
 package com.hackingismakingisengineering.dcma.controller;
 
 import com.hackingismakingisengineering.dcma.data.ProgramRepository;
-import com.hackingismakingisengineering.dcma.model.DCMAReport;
+import com.hackingismakingisengineering.dcma.model.dcma.Report;
 import com.hackingismakingisengineering.dcma.model.Program;
-import net.sf.mpxj.MPXJException;
 import net.sf.mpxj.ProjectFile;
-import net.sf.mpxj.Task;
-import net.sf.mpxj.mpp.MPPReader;
-import net.sf.mpxj.reader.ProjectReader;
 import net.sf.mpxj.reader.UniversalProjectReader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 ;import java.util.List;
 
 
@@ -68,13 +62,13 @@ public class ProgramController {
         ProjectFile project;
 
         Program program;
-        DCMAReport dcmaReport;
+        Report report;
 
 
         try {
             project = reader.read("sample.mpp");
             program = new Program(project);
-            dcmaReport = new DCMAReport(program);
+            //report = new Report(program);
 
 
 

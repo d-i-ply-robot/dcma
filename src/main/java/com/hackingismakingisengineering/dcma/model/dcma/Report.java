@@ -1,4 +1,4 @@
-package com.hackingismakingisengineering.dcma.model;
+package com.hackingismakingisengineering.dcma.model.dcma;
 
 import net.sf.mpxj.*;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DCMAReport {
+public class Report {
 
     private String title;
     private Date creationDate;
@@ -15,41 +15,61 @@ public class DCMAReport {
     private String user;
     private String programFormat;
 
-    private Program mProgram;
+    ProjectFile projectFile;
 
     private int numTasks;
 
     private TaskContainer tasks;
     private Date mStatusDate;
 
-    public DCMATestOutput getDcmaTestOutput() {
-        return dcmaTestOutput;
-    }
+    private ArrayList<TestReport> testReportsArrayList;
 
-    public void setDcmaTestOutput(DCMATestOutput dcmaTestOutput) {
-        this.dcmaTestOutput = dcmaTestOutput;
-    }
-
-    private DCMATestOutput dcmaTestOutput;
-
-
-    public DCMAReport(Program mProgram) {
-        this.mProgram = mProgram;
+    public Report(ProjectFile project) {
+        this.projectFile = project;
         run();
     }
 
+    public TestReport getTestReport() {
+        return testReport;
+    }
+
+    public void setTestReport(TestReport testReport) {
+        this.testReport = testReport;
+    }
+
+    private TestReport testReport;
+
+
+
     public boolean run(){
 
-        tasks = mProgram.getProject().getTasks();
+
+
+        tasks = this.projectFile.getTasks();
         numTasks = tasks.size();
 
-        mStatusDate = mProgram.getProject().getProjectProperties().getStatusDate();
-
-        ArrayList<Task> failingLeadsTest = leadsTest();
-        ArrayList<Task> failingFSRelationshipTest = fsRelationshipTest();
+        mStatusDate = this.projectFile.getProjectProperties().getStatusDate();
 
 
-        dcmaTestOutput = new DCMATestOutput("Lead and Lag test", failingLeadsTest, DCMATestType.RELATIONSHIP, DCMATestThreshold.TEN, numTasks);
+        testReportsArrayList = new ArrayList<>();
+
+        testReportsArrayList.add(new TestReport("Logic test", logicTest(), DCMATestType.RELATIONSHIP, TestThresholds.FIVE, numTasks));
+        testReportsArrayList.add(new TestReport("Lead test", leadsTest(), DCMATestType.RELATIONSHIP, TestThresholds.ZERO, numTasks));
+        testReportsArrayList.add(new TestReport("Lags test", lagsTest(), DCMATestType.RELATIONSHIP, TestThresholds.FIVE, numTasks));
+        testReportsArrayList.add(new TestReport("Relationship Types test", fsRelationshipTest(), DCMATestType.RELATIONSHIP, TestThresholds.TEN, numTasks));
+        testReportsArrayList.add(new TestReport("Hard Constraint test", hardConstraintsTest(), DCMATestType.DATE, TestThresholds.FIVE, numTasks));
+        testReportsArrayList.add(new TestReport("High Float test", highFloatTest(), DCMATestType.LOGIC, TestThresholds.FIVE, numTasks));
+        testReportsArrayList.add(new TestReport("Negative Float test", negativeFloatTest(), DCMATestType.LOGIC, TestThresholds.FIVE, numTasks));
+        testReportsArrayList.add(new TestReport("High Duration test", highDurationTaskTest(), DCMATestType.DURATION, TestThresholds.FIVE, numTasks));
+        testReportsArrayList.add(new TestReport("Invalid Dates test", invalidDateTest(), DCMATestType.PROGRESS, TestThresholds.ZERO, numTasks));
+        testReportsArrayList.add(new TestReport("Resources test", resourcesTest(), DCMATestType.RESOURCES, TestThresholds.ZERO, numTasks));
+        testReportsArrayList.add(new TestReport("Missed Tasks test", missedTaskTest(), DCMATestType.PROGRESS, TestThresholds.FIVE, numTasks));
+
+        //TODO:
+        //testReportsArrayList.add(new TestReport("Critical Path test", missedTaskTest(), DCMATestType.PROGRESS, TestThresholds.FIVE, numTasks));
+
+        testReportsArrayList.add(new TestReport("Critical Path Length Index test", criticalPathLengthTest(), DCMATestType.PROGRESS, TestThresholds.NINTY_FIVE, numTasks));
+        testReportsArrayList.add(new TestReport("Baseline Execution Index test", baselineExecutionIndexTest(), DCMATestType.PROGRESS, TestThresholds.FIVE, numTasks));
 
 
         return true;
@@ -64,9 +84,27 @@ public class DCMAReport {
 
 
     //Logic – Is the schedule logical? Schedule logic involves schedule tasks; Are all the predecessor, successor tasks concurrent? Missing links need to be resolved because without schedule logic an accurate Critical Path will not be possible.
-    private boolean logicTest(){
+    private ArrayList<Task> logicTest(){
 
-        return true;
+        TaskContainer failingTasks;
+        ArrayList<Task> failedTasks= new ArrayList<Task>();
+
+        for(Task t : tasks){
+
+            List<Relation> predecessorRelationships = t.getPredecessors();
+            List<Relation> successorRelationships = t.getSuccessors();
+
+
+
+            if(predecessorRelationships.size() ==0 || successorRelationships.size() ==0){
+
+                failedTasks.add(t);
+
+            }
+        }
+
+        return failedTasks;
+
     }
 
     //Leads – are not allowed in scheduling as they are confusing and disrupt the flow of the schedule. Leads are often replaced with positive lags, but this isn’t always the best alternative. It is better to have shorter known scopes of work tasks connected by FS relationships, with no lags.
@@ -83,7 +121,7 @@ public class DCMAReport {
 
             for(Relation relation : relationships){
                 Duration lag = relation.getLag();
-                if(lag.getDuration()!=0){
+                if(lag.getDuration()<0){
 
                     failedTasks.add(t);
                 }
@@ -95,9 +133,29 @@ public class DCMAReport {
     }
 
     //Lags – The DCMA does allow positive lags but has set a limit for use in a schedule. The limit for lags is no more than 5% of activity relationships. The best option is to replace lags with tasks describing the effort or process, such as cure time. Lags are limited to 5% in order to support schedule clarity.
-    private boolean lagsTest(){
+    private ArrayList<Task> lagsTest(){
 
-        return true;
+        TaskContainer failingTasks;
+        ArrayList<Task> failedTasks= new ArrayList<Task>();
+
+        for(Task t : tasks){
+
+            List<Relation> relationships = t.getPredecessors();
+
+            relationships.addAll(t.getSuccessors());
+
+            for(Relation relation : relationships){
+                Duration lag = relation.getLag();
+                if(lag.getDuration()>0){
+
+                    failedTasks.add(t);
+                }
+
+            }
+        }
+
+        return failedTasks;
+
     }
 
     //FS Relationships – Even though Primavera P6 and Deltek Acumen Fuse both support all relationship types, the DCMA assessment states 90% (or more) of schedule dependencies should be Finish-Start (FS). Start-Start (SS) are acceptable, but building a whole schedule using SS is obviously unacceptable.
@@ -199,10 +257,12 @@ public class DCMAReport {
 
         for(Task t : tasks) {
 
-            if (mStatusDate.compareTo(t.getActualStart())<0 &&
-                    mStatusDate.compareTo(t.getActualFinish())>0){
+            if(t.getActualStart()!=null) {
+                if (mStatusDate.compareTo(t.getActualStart()) < 0 &&
+                        mStatusDate.compareTo(t.getActualFinish()) > 0) {
 
-                failedTasks.add(t);
+                    failedTasks.add(t);
+                }
             }
         }
         return failedTasks;
@@ -229,43 +289,88 @@ public class DCMAReport {
 
         for(Task t : tasks) {
 
-            if (t.getBaselineStart().compareTo(mStatusDate)>0
-                && t.getEarlyStart().compareTo(mStatusDate)<0){
-                failedTasks.add(t);
+            if(t.getBaselineStart()!=null) {
+                if (t.getBaselineStart().compareTo(mStatusDate) > 0
+                        && t.getEarlyStart().compareTo(mStatusDate) < 0) {
+                    failedTasks.add(t);
+                }
             }
         }
         return failedTasks;
     }
 
     //Critical Path Test – ensures the schedule has one continuous linkage from project start to finish. It tests the integrity of a schedule’s Critical Path, looking for fluidity driven by good logic linking.
+    //TODO
     private ArrayList<Task> criticalPathTest(){
 
         return null;
     }
 
     //Critical Path Length Index – the Critical Path Length Index (CPLI) is a forward looking gauge that assesses required efficiency to complete the project on schedule. It measures the ratio of the project critical path length and the project total float to the project critical path length. The critical path length is the time in work days from the current date to the completion of the project. The target number is 1.0 and schedule’s that have a CLPI less than 0.95 require further review.
-    private ArrayList<Task> criticalPathLengthTest(){
+    //TODO
+    private Double criticalPathLengthTest(){
 
-        return null;
+        projectFile.getProjectProperties().getStartDate();
+        projectFile.getProjectProperties().getFinishDate();
+        projectFile.getProjectProperties().getStatusDate();
+
+        projectFile.getProjectProperties().getCriticalSlackLimit();
+
+        return 0d;
     }
 
-    //Baseline Execution Index – the Baseline Execution Index (BEI) is an early warning indicator that a schedule is in trouble of not meeting the deadline. Most scheduling software doesn’t have a BEI variable, but it is possible to compute the ratio yourself or purchase an additional scheduling software supplement. The BEI ratios advanced, nontrivial, and purposeful warning makes the computation worth the effort. A BEI of 1.0 means that the schedule is on the right track.
-    private ArrayList<Task> baselineExecutionIndexTest(){
+    //Baseline Execution Index – the Baseline Execution Index (BEI) is an early warning indicator that a schedule is in
+    // trouble of not meeting the deadline. Most scheduling software doesn’t have a BEI variable, but it is possible to
+    // compute the ratio yourself or purchase an additional scheduling software supplement. The BEI ratios advanced,
+    // nontrivial, and purposeful warning makes the computation worth the effort. A BEI of 1.0 means that the schedule
+    // is on the right track. The final metric, Baseline Execution Index (BEI), is another indicator intended to measure
+    // performance against the baseline plan. Put differently, it measures the throughput with which the project team is
+    // accomplishing tasks.
+    //
+    // It is calculated by dividing the total number of tasks completed by the total number of tasks
+    // baselined to have been completed as of the project status date. A BEI of 1.00 indicates the project team is
+    // executing on plan, with greater than 1.00 indicating ahead of schedule and below 1.00 indicating behind schedule.
+    // DCMA considers a BEI below 0.95 to be indicative of a potential issue requiring further investigation.
+    private Double baselineExecutionIndexTest(){
 
-        return null;
+        ArrayList<Task> failedTasks= new ArrayList<Task>();
+
+        for(Task t : tasks){
+            if(t.getBaselineFinish()!=null){
+            if(t.getBaselineFinish().compareTo(mStatusDate)<0 && t.getPercentageComplete().intValue() != 100 ) {
+                failedTasks.add(t);
+            }
+            }
+        }
+
+        return Double.valueOf(failedTasks.size())/(Double.valueOf(tasks.size()));
+
     }
 
 
     @Override
     public String toString() {
-        return "DCMAReport{" +
+
+        /*
+        return "Report{" +
                 "title='" + title + '\'' +
                 ", creationDate=" + creationDate +
                 ", updateDate=" + updateDate +
                 ", exportDate=" + exportDate +
                 ", user='" + user + '\'' +
-                ", mProgram=" + mProgram +
+
                 '}';
+         */
+
+        String report = "";
+
+        for(TestReport testReport :testReportsArrayList){
+
+            report += testReport.toString();
+
+        }
+        return report;
+
     }
 
     public String getTitle() {
@@ -308,11 +413,5 @@ public class DCMAReport {
         this.user = user;
     }
 
-    public Program getmProgram() {
-        return mProgram;
-    }
 
-    public void setmProgram(Program mProgram) {
-        this.mProgram = mProgram;
-    }
 }

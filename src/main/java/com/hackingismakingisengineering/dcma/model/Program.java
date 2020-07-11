@@ -1,5 +1,6 @@
 package com.hackingismakingisengineering.dcma.model;
 
+import com.hackingismakingisengineering.dcma.model.dcma.Report;
 import net.sf.mpxj.ProjectFile;
 
 import javax.persistence.*;
@@ -14,6 +15,10 @@ public class Program {
 
     @Transient // This excludes the project from the DB.
     private ProjectFile project;
+
+
+    @Transient //TODO: undo - excludes from the db
+    private Report report;
 
 
     private String user;
@@ -40,7 +45,7 @@ public class Program {
     public Program(ProjectFile project) {
         this.project = project;
         this.string = this.toString();
-
+        report = new Report(project);
         }
 
     public Program(ProjectFile project, String user, String title, int categoryId) {
@@ -50,6 +55,9 @@ public class Program {
         this.string = toString();
         this.categoryId = categoryId;
 
+        if(project!=null) {
+            report = new Report(project);
+        }
         //this.category = new Category(categoryId);
     }
 
@@ -91,5 +99,37 @@ public class Program {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Report getReport() {
+        return report;
+    }
+
+    public void setReport(Report report) {
+        this.report = report;
+    }
+
+    public byte[] getBytes() {
+        return bytes;
+    }
+
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
