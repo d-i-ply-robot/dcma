@@ -6,12 +6,12 @@ import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan
 @EnableAutoConfiguration
-public class AppConfig {
+public class Application {
 
     // view page on browser at- http://localhost:8080/
     public static void main(String[] args) {
 
-        SpringApplication.run(AppConfig.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }

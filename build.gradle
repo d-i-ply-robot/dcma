@@ -40,6 +40,7 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.15.Final'
 
     // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-dbcp
+    // DBCP - Database Connection Pooling - enables sharing of connections to save resources
     compile group: 'org.apache.tomcat', name: 'tomcat-dbcp', version: '9.0.35'
 
     // https://mvnrepository.com/artifact/com.h2database/h2

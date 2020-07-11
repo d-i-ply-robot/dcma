@@ -14,10 +14,11 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource("app.properties")
-public class dataConfig {
+public class DataConfig {
 
     @Autowired
     private Environment env;
+
 
     @Bean
     public LocalSessionFactoryBean sessionFactoryBean(){

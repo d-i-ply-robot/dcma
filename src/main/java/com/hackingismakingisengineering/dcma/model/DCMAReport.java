@@ -22,6 +22,16 @@ public class DCMAReport {
     private TaskContainer tasks;
     private Date mStatusDate;
 
+    public DCMATestOutput getDcmaTestOutput() {
+        return dcmaTestOutput;
+    }
+
+    public void setDcmaTestOutput(DCMATestOutput dcmaTestOutput) {
+        this.dcmaTestOutput = dcmaTestOutput;
+    }
+
+    private DCMATestOutput dcmaTestOutput;
+
 
     public DCMAReport(Program mProgram) {
         this.mProgram = mProgram;
@@ -38,10 +48,8 @@ public class DCMAReport {
         ArrayList<Task> failingLeadsTest = leadsTest();
         ArrayList<Task> failingFSRelationshipTest = fsRelationshipTest();
 
-        //reportTestToConsole(failingLeadsTest);
 
-        DCMATestOutput dcmaTestOutput = new DCMATestOutput("Lead and Lag test", failingLeadsTest, DCMATestType.RELATIONSHIP, DCMATestThreshold.TEN, numTasks);
-        System.out.println(dcmaTestOutput.toString());
+        dcmaTestOutput = new DCMATestOutput("Lead and Lag test", failingLeadsTest, DCMATestType.RELATIONSHIP, DCMATestThreshold.TEN, numTasks);
 
 
         return true;
