@@ -20,14 +20,14 @@ public class ProgramController {
     @Autowired
     private ProgramRepository programRepository;
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/programs")
     public String listPrograms(ModelMap modelMap){
 
         List<Program> programList= programRepository.getAllPrograms();
 
         modelMap.put("programs", programList);
 
-        return "home";
+        return "programs";
     }
 
     @RequestMapping(value = "/programs/{title}")
@@ -55,27 +55,9 @@ public class ProgramController {
 
 
 
-    @RequestMapping(value = "/home")
+    @RequestMapping(value = "/")
     public String reportDetails(){
 
-        UniversalProjectReader reader = new UniversalProjectReader();
-        ProjectFile project;
-
-        Program program;
-        Report report;
-
-
-        try {
-            project = reader.read("sample.mpp");
-            program = new Program(project);
-            //report = new Report(program);
-
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         return "home";
     }

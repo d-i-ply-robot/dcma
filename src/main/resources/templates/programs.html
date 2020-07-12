@@ -8,10 +8,13 @@
     <title>DCMA Program Checker</title>
 </head>
 <body>
-<h1>Program Details</h1>
+<h1>Programs Available</h1>
 
-<p th:text="${program.title}"></p>
-<small th:text="${program.string}"></small>
+<ul>
+    <li th:each="program : ${programs}">
+        <a th:href="@{'/programs/' + ${program.title}}" th:text="${program.title}">program title</a>
+    </li>
+</ul>
 
 <p> <a href="/upload">upload a program</a></p>
 <p><a href="/programs">browse programs</a></p>
