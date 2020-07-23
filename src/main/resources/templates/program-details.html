@@ -13,6 +13,19 @@
 <p th:text="${program.title}"></p>
 <small th:text="${program.string}"></small>
 
+
+<p th:text="${program.report.testReportsArrayList}"></p>
+
+<div class="container">
+    <ul>
+        <li th:each="testReport : ${program.report.testReportsArrayList}">
+            <!--<a th:href="@{'/programs/' + ${program.title}}" th:text="${program.title}">program title</a>-->
+            <p th:text="${testReport}">test report</a></p>
+        </li>
+    </ul>
+</div>
+
+
 <p> <a href="/upload">upload a program</a></p>
 <p><a href="/programs">browse programs</a></p>
 <p><a href="/categories">browse by category</a></p>

@@ -1,5 +1,12 @@
 package com.hackingismakingisengineering.dcma.controller;
 
+import com.hackingismakingisengineering.dcma.data.ProgramRepository;
+import com.hackingismakingisengineering.dcma.model.Program;
+import net.sf.mpxj.MPXJException;
+import net.sf.mpxj.ProjectFile;
+import net.sf.mpxj.reader.ProjectReader;
+import net.sf.mpxj.reader.UniversalProjectReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +22,9 @@ import java.nio.file.Paths;
 @Controller
 public class UploadController {
 
+
+    @Autowired
+    private ProgramRepository programRepository;
 
     public static String uploadDirectory = "C:/Users/AltaRig/IdeaProjects/dcma/src/main/resources/files" ;
 
@@ -38,6 +48,24 @@ public class UploadController {
 
         modelMap.addAttribute("msg", "successfully uploaded: " + files[0].getOriginalFilename());
 
+        ProjectFile projectFile =null;
+
+        ProjectReader reader = new UniversalProjectReader();
+        try {
+
+            String tempPath = fileNameAndPath.toString();
+            tempPath.replace("\\", "/");
+
+
+            projectFile = reader.read(tempPath);
+        } catch (MPXJException e) {
+            e.printStackTrace();
+        }
+
+
+        Program programToBeTested = new Program(projectFile, "cam", "signalisation", 1);
+
+        programRepository.addProgram(programToBeTested);
         return "uploadstatus";
 
     }

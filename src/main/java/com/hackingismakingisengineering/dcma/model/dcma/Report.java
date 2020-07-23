@@ -24,6 +24,14 @@ public class Report {
 
     private ArrayList<TestReport> testReportsArrayList;
 
+    public ArrayList<TestReport> getTestReportsArrayList() {
+        return testReportsArrayList;
+    }
+
+    public void setTestReportsArrayList(ArrayList<TestReport> testReportsArrayList) {
+        this.testReportsArrayList = testReportsArrayList;
+    }
+
     public Report(ProjectFile project) {
         this.projectFile = project;
         run();
@@ -257,9 +265,9 @@ public class Report {
 
         for(Task t : tasks) {
 
-            if(t.getActualStart()!=null) {
+            if(t.getActualStart()!=null && mStatusDate!= null) {
                 if (mStatusDate.compareTo(t.getActualStart()) < 0 &&
-                        mStatusDate.compareTo(t.getActualFinish()) > 0) {
+                        mStatusDate.compareTo(t.getActualStart()) > 0) {
 
                     failedTasks.add(t);
                 }
