@@ -11,7 +11,7 @@ import java.util.List;
 public class UserRepository {
 
     private static final  List<User> userRepository = Arrays.asList(
-            new User("user", true, "password", 1),
+            new User("user", true, "$2y$10$1qewptzS39OOa2dKe0bfieilrFBHdmf7IRyXLtgjKbb9XfGOOjk1G", 1),
             new User("admin", true, "password", 2));
 
     public List<User> getUserRepository() {

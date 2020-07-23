@@ -40,6 +40,10 @@ public class User implements UserDetails {
         this.role = new Role("admin");
     }
 
+    public User() {
+
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
