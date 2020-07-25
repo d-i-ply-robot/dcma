@@ -14,13 +14,14 @@
 <small th:text="${program.string}"></small>
 
 
-<p th:text="${program.report.testReportsArrayList}"></p>
+<!--<p th:text="${program.report.testReportsArrayList}"></p>-->
 
 <div class="container">
     <ul>
         <li th:each="testReport : ${program.report.testReportsArrayList}">
             <!--<a th:href="@{'/programs/' + ${program.title}}" th:text="${program.title}">program title</a>-->
-            <p th:text="${testReport}">test report</a></p>
+            <p th:text="${testReport.mTestName}">test report</a></p>
+            <p th:text="${testReport.testPassing}">test passing</a></p>
         </li>
     </ul>
 </div>

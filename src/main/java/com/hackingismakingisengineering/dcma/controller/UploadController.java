@@ -26,7 +26,7 @@ public class UploadController {
     @Autowired
     private ProgramRepository programRepository;
 
-    public static String uploadDirectory = "C:/Users/AltaRig/IdeaProjects/dcma/src/main/resources/files" ;
+    public static String uploadDirectory = "C:\\Users\\Cameron\\Documents\\Java\\dcma" ;
 
 
 
@@ -37,7 +37,7 @@ public class UploadController {
     }
 
     @RequestMapping("/uploadstatus")
-    private String upLoadStatus(ModelMap modelMap, @RequestParam("files") MultipartFile[] files){
+    private String upLoadStatus(ModelMap modelMap, @RequestParam("files") MultipartFile[] files, @RequestParam("projectname") String projectName){
 
         Path fileNameAndPath = Paths.get(uploadDirectory, files[0].getOriginalFilename());
         try {
@@ -63,7 +63,7 @@ public class UploadController {
         }
 
 
-        Program programToBeTested = new Program(projectFile, "cam", "signalisation", 1);
+        Program programToBeTested = new Program(projectFile, "cam", projectName, 1);
 
         programRepository.addProgram(programToBeTested);
         return "uploadstatus";
