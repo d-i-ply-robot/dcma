@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="//db.onlinewebfonts.com/c/6c79f7fd645c0d39b4ca10428237984a?family=Azo+Sans" rel="stylesheet" type="text/css"/>
+    <!--th:href="@{/app.css} this tells the timeleaf engine to generate a URL to the css file  -->
+    <link rel="stylesheet" th:href="@{/alta.css}"/>
+    <title>DCMA Program Checker</title>
+</head>
+<body>
+<h1>Programs Available</h1>
+
+<div class="container">
+<ul>
+    <li th:each="program : ${programs}">
+        <a th:href="@{'/programs/' + ${program.title}}" th:text="${program.title}">program title</a>
+    </li>
+</ul>
+</div>
+
+<p> <a href="/upload">upload a program</a></p>
+<p><a href="/programs">browse programs</a></p>
+<p><a href="/categories">browse by category</a></p>
+<p><a href="/home">home</a></p>
+
+
+</body>
+</html>

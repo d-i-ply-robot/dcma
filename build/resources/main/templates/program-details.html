@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <!--th:href="@{/app.css} this tells the timeleaf engine to generate a URL to the css file  -->
+    <link rel="stylesheet" th:href="@{/app.css}"/>
+    <title>DCMA Program Checker</title>
+</head>
+<body>
+<h1>Program Details</h1>
+
+<p th:text="${program.title}"></p>
+<small th:text="${program.string}"></small>
+
+
+<!--<p th:text="${program.report.testReportsArrayList}"></p>-->
+
+<div class="container">
+    <ul>
+        <li th:each="testReport : ${program.report.testReportsArrayList}">
+            <!--<a th:href="@{'/programs/' + ${program.title}}" th:text="${program.title}">program title</a>-->
+            <p th:text="${testReport.mTestName}">test report</a></p>
+            <p th:text="${testReport.testPassing}">test passing</a></p>
+        </li>
+    </ul>
+</div>
+
+
+<p> <a href="/upload">upload a program</a></p>
+<p><a href="/programs">browse programs</a></p>
+<p><a href="/categories">browse by category</a></p>
+<p><a href="/home">home</a></p>
+
+
+</body>
+</html>

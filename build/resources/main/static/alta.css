@@ -1,0 +1,61 @@
+
+@import url(//db.onlinewebfonts.com/c/6c79f7fd645c0d39b4ca10428237984a?family=Azo+Sans);
+/*
+Blue
+RGB: 24/19/55
+CMYK: 96/95/44/55
+Pantone Solid Coated 275
+ color: #181337;
+
+green
+RGB: 51/243/176
+CMYK: 60/0/45/0
+
+
+yellow
+RGB: 228/191/113
+CMYK: 12/23/66/0
+
+Red
+RGB: 216/60/50
+CMYK: 9/91/92/1
+
+font:
+Azo Sans
+*/
+
+@font-face {font-family: "Azo Sans";
+src: url("//db.onlinewebfonts.com/t/6c79f7fd645c0d39b4ca10428237984a.eot"); src: url("//db.onlinewebfonts.com/t/6c79f7fd645c0d39b4ca10428237984a.eot?#iefix")
+format("embedded-opentype"), url("//db.onlinewebfonts.com/t/6c79f7fd645c0d39b4ca10428237984a.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/6c79f7fd645c0d39b4ca10428237984a.woff") format("woff"), url("//db.onlinewebfonts.com/t/6c79f7fd645c0d39b4ca10428237984a.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/6c79f7fd645c0d39b4ca10428237984a.svg#Azo Sans") format("svg");
+}
+
+body{
+ font-family: "Azo Sans", verdana;
+ color: #181337;
+
+}
+
+.container{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+
+}
+
+#mainHeader{
+    background: #181337;
+
+}
+
+/*
+li{
+ font-family: "Azo Sans", verdana;
+ color: #181337;
+
+}
+
+p{
+ font-family: "Azo Sans", verdana;
+ color: #181337;
+
+}*/
