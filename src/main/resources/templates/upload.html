@@ -5,19 +5,31 @@
 
     <!--th:href="@{/app.css} this tells the timeleaf engine to generate a URL to the css file  -->
     <link rel="stylesheet" th:href="@{/app.css}"/>
-    <title>DCMA Program Checker</title>
+    <title>Upload</title>
 </head>
 <body>
-<h1>ALTApro - DCMA Program Checker</h1>
+<h1>Upload</h1>
+    <form action="/uploadstatus" method="post" enctype="multipart/form-data">
+        <input type="file" name="files" multiple>
+        <input type="submit" value="Upload files">
+
+    </form>
 
 
 
+
+<!--
+<ul>
+    <li th:each="program : ${programs}">
+        <a th:href="@{'/programs/' + ${program.title}}" th:text="${program.title}">program title</a>
+    </li>
+</ul>
+-->
 
 <p> <a href="/upload">upload a program</a></p>
 <p><a href="/programs">browse programs</a></p>
 <p><a href="/categories">browse by category</a></p>
 <p><a href="/home">home</a></p>
-
 
 </body>
 </html>

@@ -8,10 +8,18 @@
     <title>DCMA Program Checker</title>
 </head>
 <body>
-<h1>ALTApro - DCMA Program Checker</h1>
+<h1>Category Details</h1>
 
+<p th:text="${category.name}"></p>
+<small th:text="${category.id}"></small>
 
+<h1>Programs</h1>
 
+<ul>
+    <li th:each="program : ${programs}">
+        <a th:href="@{'/programs/' + ${program.title}}" th:text="${program.title}">program title</a>
+    </li>
+</ul>
 
 <p> <a href="/upload">upload a program</a></p>
 <p><a href="/programs">browse programs</a></p>
