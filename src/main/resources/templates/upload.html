@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
 
     <!--th:href="@{/app.css} this tells the timeleaf engine to generate a URL to the css file  -->
-    <link rel="stylesheet" th:href="@{/app.css}"/>
+    <link rel="stylesheet" th:href="@{/alta.css}"/>
     <title>Upload</title>
 </head>
 <body>
-<h1>Upload</h1>
-    <form action="/uploadstatus" method="post" enctype="multipart/form-data">
-        <input type="file" name="files" multiple>
-        <input type="submit" value="Upload files">
+<div id="container">
+    <div id="main">
 
-    </form>
+<h1>Upload</h1>
+<form action="/uploadstatus" method="post" enctype="multipart/form-data">
+    <input type="file" name="files" multiple>
+    <input type="text" name="projectname" value="project name">
+    <input type="submit" value="Upload files">
+
+
+</form>
 
 
 
@@ -26,10 +31,15 @@
 </ul>
 -->
 
-<p> <a href="/upload">upload a program</a></p>
-<p><a href="/programs">browse programs</a></p>
-<p><a href="/categories">browse by category</a></p>
-<p><a href="/home">home</a></p>
+    </div>
+</div>
+
+<footer id="footer">
+    <p> <a href="/upload">upload a program</a></p>
+    <p><a href="/programs">browse programs</a></p>
+    <p><a href="/categories">browse by category</a></p>
+    <p><a href="/home">home</a></p>
+</footer>
 
 </body>
 </html>

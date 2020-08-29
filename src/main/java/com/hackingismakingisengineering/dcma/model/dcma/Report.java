@@ -53,23 +53,24 @@ public class Report {
 
         testReportsArrayList = new ArrayList<>();
 
-        testReportsArrayList.add(new TestReport("Logic test", logicTest(), DCMATestType.RELATIONSHIP, TestThresholds.FIVE, numTasks));
-        testReportsArrayList.add(new TestReport("Lead test", leadsTest(), DCMATestType.RELATIONSHIP, TestThresholds.ZERO, numTasks));
-        testReportsArrayList.add(new TestReport("Lags test", lagsTest(), DCMATestType.RELATIONSHIP, TestThresholds.FIVE, numTasks));
-        testReportsArrayList.add(new TestReport("Relationship Types test", fsRelationshipTest(), DCMATestType.RELATIONSHIP, TestThresholds.TEN, numTasks));
-        testReportsArrayList.add(new TestReport("Hard Constraint test", hardConstraintsTest(), DCMATestType.DATE, TestThresholds.FIVE, numTasks));
-        testReportsArrayList.add(new TestReport("High Float test", highFloatTest(), DCMATestType.LOGIC, TestThresholds.FIVE, numTasks));
-        testReportsArrayList.add(new TestReport("Negative Float test", negativeFloatTest(), DCMATestType.LOGIC, TestThresholds.FIVE, numTasks));
-        testReportsArrayList.add(new TestReport("High Duration test", highDurationTaskTest(), DCMATestType.DURATION, TestThresholds.FIVE, numTasks));
-        testReportsArrayList.add(new TestReport("Invalid Dates test", invalidDateTest(), DCMATestType.PROGRESS, TestThresholds.ZERO, numTasks));
-        testReportsArrayList.add(new TestReport("Resources test", resourcesTest(), DCMATestType.RESOURCES, TestThresholds.ZERO, numTasks));
-        testReportsArrayList.add(new TestReport("Missed Tasks test", missedTaskTest(), DCMATestType.PROGRESS, TestThresholds.FIVE, numTasks));
+        //TODO: Convert to ENUM
+        testReportsArrayList.add(new TestReport("Logic test", logicTest(), DCMATestType.RELATIONSHIP, TestThresholds.FIVE, numTasks, "The logic check looks to ensure all incomplete activities have defined predecessors and successors. (DCMA max 5%, often use 0%)"));
+        testReportsArrayList.add(new TestReport("Lead test", leadsTest(), DCMATestType.RELATIONSHIP, TestThresholds.ZERO, numTasks, "A lead is a negative lag between two tasks. Using leads can have adverse effects on the project total float, therefore impeding the ability to determine the true critical path. It is better to decompose activities to a level of detail in which traditional finish-to-start relationships can be used. (DCMA max 0%)"));
+        testReportsArrayList.add(new TestReport("Lags test", lagsTest(), DCMATestType.RELATIONSHIP, TestThresholds.FIVE, numTasks, "Lags can be confusing if the reason for them isn’t immediately clear. Better to represent a lag with an explicitly named task. (DCMA max 5%)"));
+        testReportsArrayList.add(new TestReport("Relationship Types test", fsRelationshipTest(), DCMATestType.RELATIONSHIP, TestThresholds.TEN, numTasks, "Ideally, all tasks in the schedule would be sequenced finish-to-start to have the clearest understanding of the critical path.(DCMA min 90%) Start-to-start or finish-to-finish relationships may be used in cases where that is the true nature of the dependency. Start-to-start and finish-to-finish relationships should not be used, however, simply to schedule activities in parallel if they do not truly depend on each other. In such instances, it is better to give the two parallel activities the same finish-to-start predecessor(s). "));
+        testReportsArrayList.add(new TestReport("Hard Constraint test", hardConstraintsTest(), DCMATestType.DATE, TestThresholds.FIVE, numTasks, "Constraints in general should be used sparingly, allowing for task dates to be the natural result of dependencies and activity duration. When necessary, however, soft constraints (Start No Earlier Than and Finish No Earlier Than) are preferable because they allow the schedule to continue to be logic driven. By contrast, hard constraints (Start No Later Than, Finish No Later Than, Must Start On, and Must Finish On) artificially prevent the schedule from shifting to the right. This has the potentially disastrous effect of obscuring the possibility of late performance before it is too late to take corrective action. (DCMA max 5%, often use 0%)"));
+        testReportsArrayList.add(new TestReport("High Float test", highFloatTest(), DCMATestType.LOGIC, TestThresholds.FIVE, numTasks,"DCMA defines high float as total float of 44 days (2 working months) or greater. Intuitively, one would assume that activities with high float would be a good thing, a form of schedule margin so to speak. However, high float is more often the result of missing dependencies. It is the rare activity that can slip more than two months without impacting the project completion date. (DCMA max 5%)"));
+        testReportsArrayList.add(new TestReport("Negative Float test", negativeFloatTest(), DCMATestType.LOGIC, TestThresholds.FIVE, numTasks, "Negative float occurs when the project schedule is forecasting a missed deadline, or when a hard constraint is holding a task further to the left than it would otherwise be. (DCMA max 0%)"));
+        testReportsArrayList.add(new TestReport("High Duration test", highDurationTaskTest(), DCMATestType.DURATION, TestThresholds.FIVE, numTasks, "Part of the planning process is decomposing work packages to a level where the activities are discrete enough to track and manage. DCMA considers any incomplete activity with a baseline duration of greater than 44 days to be in violation of this metric. (DCMA max 5%)"));
+        testReportsArrayList.add(new TestReport("Invalid Dates test", invalidDateTest(), DCMATestType.PROGRESS, TestThresholds.ZERO, numTasks, "The invalid date check applies only during execution of the project. A task is said to have invalid dates if it has forecast start/finish dates in the past or actual start/finish dates in the future, with respect to the project status date. The threshold for this metric is zero."));
+        testReportsArrayList.add(new TestReport("Resources test", resourcesTest(), DCMATestType.RESOURCES, TestThresholds.ZERO, numTasks, "Ideally, all project schedule activities should have resources assigned to them. In practice, not all organizations resource load their project schedules. Additionally, there are occasions where tasks with durations greater than zero are representative of time but have no work associated with them, such as procurement lead-time or customer review of deliverables. This is one of the more flexible metrics of the 14-point assessment. In the case of organizations that resource load their schedules, it is still a good metric to evaluate to ensure no activities were missed during the resource estimation process."));
+        testReportsArrayList.add(new TestReport("Missed Tasks test", missedTaskTest(), DCMATestType.PROGRESS, TestThresholds.FIVE, numTasks, "The missed tasks metric is indicative of schedule performance against the baseline plan. It is the percentage of tasks which were planned to have finished as of the project status date, which have actual or forecast finish dates later than their baseline finish dates. It does not include tasks which are currently forecasting late if those tasks have baseline finish dates after the status date. In that way, it is purely retrospective. The DCMA threshold for missed tasks is 5%, though recovery at a certain point becomes unlikely after a project falls too far behind."));
 
         //TODO:
         //testReportsArrayList.add(new TestReport("Critical Path test", missedTaskTest(), DCMATestType.PROGRESS, TestThresholds.FIVE, numTasks));
 
-        testReportsArrayList.add(new TestReport("Critical Path Length Index test", criticalPathLengthTest(), DCMATestType.PROGRESS, TestThresholds.NINTY_FIVE, numTasks));
-        testReportsArrayList.add(new TestReport("Baseline Execution Index test", baselineExecutionIndexTest(), DCMATestType.PROGRESS, TestThresholds.FIVE, numTasks));
+        testReportsArrayList.add(new TestReport("Critical Path Length Index test", criticalPathLengthTest(), DCMATestType.PROGRESS, TestThresholds.NINTY_FIVE, numTasks, "The Critical Path Length Index (CPLI) is a measure of required schedule efficiency to complete a project. It is defined as the sum of the remaining project duration (number of working days on the current critical path) and total float, divided by the remaining project duration. Total float in this instance is the variance between the forecast and baseline finish date of the Project Finish milestone. A CPLI of 1.00 indicates that the project must execute exactly to plan for the remainder of the project. A CPLI above 1.00 indicates that there is remaining schedule margin, while a CPLI below 1.00 indicates that the team must overachieve to meet the baseline finish date. DCMA considers a CPLI below 0.95 to be indicative of a potential issue requiring further investigation."));
+        testReportsArrayList.add(new TestReport("Baseline Execution Index test", baselineExecutionIndexTest(), DCMATestType.PROGRESS, TestThresholds.FIVE, numTasks, "The final metric, Baseline Execution Index (BEI), is another indicator intended to measure performance against the baseline plan. Put differently, it measures the throughput with which the project team is accomplishing tasks. It is calculated by dividing the total number of tasks completed by the total number of tasks baselined to have been completed as of the project status date. A BEI of 1.00 indicates the project team is executing on plan, with greater than 1.00 indicating ahead of schedule and below 1.00 indicating behind schedule. DCMA considers a BEI below 0.95 to be indicative of a potential issue requiring further investigation."));
 
 
         return true;
@@ -197,7 +198,7 @@ public class Report {
                 failedTasks.add(t);
             }
         }
-            return failedTasks;
+        return failedTasks;
     }
 
     //High Float – activities may not be linked properly and can cause stress on the Critical Path. Total Float values are limited to 44 days, therefore review tasks that have greater than 2 months total float and limit their usage to 5% of incomplete tasks.
@@ -337,9 +338,9 @@ public class Report {
 
         for(Task t : tasks){
             if(t.getBaselineFinish()!=null){
-            if(t.getBaselineFinish().compareTo(mStatusDate)<0 && t.getPercentageComplete().intValue() != 100 ) {
-                failedTasks.add(t);
-            }
+                if(t.getBaselineFinish().compareTo(mStatusDate)<0 && t.getPercentageComplete().intValue() != 100 ) {
+                    failedTasks.add(t);
+                }
             }
         }
 
@@ -347,6 +348,53 @@ public class Report {
 
     }
 
+    public String getProgramFormat() {
+        return programFormat;
+    }
+
+    public void setProgramFormat(String programFormat) {
+        this.programFormat = programFormat;
+    }
+
+    public ProjectFile getProjectFile() {
+        return projectFile;
+    }
+
+    public void setProjectFile(ProjectFile projectFile) {
+        this.projectFile = projectFile;
+    }
+
+    public int getNumTasks() {
+        return numTasks;
+    }
+
+    public void setNumTasks(int numTasks) {
+        this.numTasks = numTasks;
+    }
+
+    public TaskContainer getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(TaskContainer tasks) {
+        this.tasks = tasks;
+    }
+
+    public Date getmStatusDate() {
+        return mStatusDate;
+    }
+
+    public void setmStatusDate(Date mStatusDate) {
+        this.mStatusDate = mStatusDate;
+    }
+
+    public ArrayList<TestReport> getTestReportsArrayList() {
+        return testReportsArrayList;
+    }
+
+    public void setTestReportsArrayList(ArrayList<TestReport> testReportsArrayList) {
+        this.testReportsArrayList = testReportsArrayList;
+    }
 
     @Override
     public String toString() {

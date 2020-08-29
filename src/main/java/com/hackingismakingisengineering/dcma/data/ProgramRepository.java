@@ -15,12 +15,16 @@ public class ProgramRepository {
     //TODO: turn this from static to a proper databasae
 
 
-    private static final List<Program> allPrograms = Arrays.asList(
+    private static ArrayList<Program> allPrograms = new ArrayList<>();
+
+            /*
             new Program(null, "Cameron", "CRL", 1),
             new Program(null, "Kelly", "Picton", 1),
             new Program(null, "Garvan", "Wolverton", 2),
             new Program(null, "Rory", "SMW", 3)
-    );
+
+             */
+
 
     public Program findByTitle(String title) {
         for (Program program : allPrograms) {
@@ -31,13 +35,13 @@ public class ProgramRepository {
         return null;
     }
 
-    public List<Program> getAllPrograms() {
+    public ArrayList<Program> getAllPrograms() {
         return allPrograms;
     }
 
-    public List<Program> getProgramByCategoryId(Long id) {
+    public ArrayList<Program> getProgramByCategoryId(Long id) {
 
-        List<Program> programsInCategory = new ArrayList<>();
+        ArrayList<Program> programsInCategory = new ArrayList<>();
 
         for (Program program : allPrograms) {
             if (id.equals(program.getCategoryId())) {
@@ -46,5 +50,10 @@ public class ProgramRepository {
 
         }
         return programsInCategory;
+    }
+
+    public void addProgram(Program programToBeTested) {
+        allPrograms.add(programToBeTested);
+
     }
 }

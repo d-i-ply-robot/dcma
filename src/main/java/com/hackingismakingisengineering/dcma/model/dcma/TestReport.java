@@ -11,12 +11,18 @@ import static java.lang.Boolean.TRUE;
 
 public class TestReport {
 
+
+
+    private String testDescription;
     public String mTestName;
     public ArrayList<Task> mFailingTestTasks;
     public DCMATestType mTestType;
     public int mNumTasks;
     public Double percentFailing;
     public boolean testPassing = TRUE;
+
+
+    public Double testThreshold;
 
     public Double index;
 
@@ -26,6 +32,7 @@ public class TestReport {
         mFailingTestTasks = failingTestTasks;
         mTestType = testType;
         mNumTasks = numTasks;
+        this.testThreshold = threshold.getValue();
 
         percentFailing = (double)failingTestTasks.size()/numTasks;
 
@@ -35,21 +42,46 @@ public class TestReport {
 
     }
 
-    public TestReport(String testName, Double index, DCMATestType testType, TestThresholds threshold, int numTasks) {
 
+
+    public TestReport(String testName, ArrayList<Task> failingTestTasks, DCMATestType testType, TestThresholds threshold, int numTasks, String testDescriptor) {
         mTestName = testName;
         //mFailingTestTasks = failingTestTasks;
         mTestType = testType;
         mNumTasks = numTasks;
 
-        this.index = index;
+        percentFailing = (double)failingTestTasks.size()/numTasks;
+
+        this.testThreshold = threshold.getValue();
 
         //TODO:fix this jazz
-        if(index > threshold.getValue()){
+        if(percentFailing > threshold.getValue()){
             testPassing = FALSE;
         }
 
+        this.testDescription = testDescriptor;
     }
+
+
+    public TestReport(String testName, Double score, DCMATestType testType, TestThresholds threshold, int numTasks, String testDescriptor) {
+        mTestName = testName;
+        //mFailingTestTasks = failingTestTasks;
+        mTestType = testType;
+        mNumTasks = numTasks;
+
+        this.testThreshold = threshold.getValue();
+
+        //TODO:fix this jazz
+        /*
+        if(index > threshold.getValue()){
+            testPassing = FALSE;
+        }
+        */
+        this.testPassing = FALSE;
+        this.testDescription = testDescriptor;
+    }
+
+
 
 
     @Override
@@ -126,4 +158,54 @@ public class TestReport {
     public void setmTestType(DCMATestType mTestType) {
         this.mTestType = mTestType;
     }
+
+    public String getTestDescription() {
+        return testDescription;
+    }
+
+    public void setTestDescription(String testDescription) {
+        this.testDescription = testDescription;
+    }
+
+    public int getmNumTasks() {
+        return mNumTasks;
+    }
+
+    public void setmNumTasks(int mNumTasks) {
+        this.mNumTasks = mNumTasks;
+    }
+
+    public Double getPercentFailing() {
+        return percentFailing;
+    }
+
+    public void setPercentFailing(Double percentFailing) {
+        this.percentFailing = percentFailing;
+    }
+
+    public boolean isTestPassing() {
+        return testPassing;
+    }
+
+    public void setTestPassing(boolean testPassing) {
+        this.testPassing = testPassing;
+    }
+
+    public Double getIndex() {
+        return index;
+    }
+
+    public void setIndex(Double index) {
+        this.index = index;
+    }
+
+
+    public Double getTestThreshold() {
+        return testThreshold;
+    }
+
+    public void setTestThreshold(Double testThreshold) {
+        this.testThreshold = testThreshold;
+    }
+
 }
