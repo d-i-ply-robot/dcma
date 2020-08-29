@@ -1,6 +1,6 @@
 package com.hackingismakingisengineering.dcma.controller;
 
-import com.hackingismakingisengineering.dcma.model.User.User;
+//import com.hackingismakingisengineering.dcma.model.User.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+/*
 @Controller
 public class LoginController {
 
@@ -43,4 +43,4 @@ public class LoginController {
         return "access_denied";
     }
 
-}
+}*/

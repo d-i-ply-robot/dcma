@@ -1,8 +1,8 @@
 package com.hackingismakingisengineering.dcma.model.User;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/*
 @Entity
 public class User implements UserDetails {
 
@@ -92,3 +93,4 @@ public class User implements UserDetails {
         return enabled;
     }
 }
+ */
