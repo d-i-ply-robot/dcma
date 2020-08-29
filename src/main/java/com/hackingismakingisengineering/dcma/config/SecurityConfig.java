@@ -1,5 +1,6 @@
-package com.hackingismakingisengineering.dcma.config;
 /*
+package com.hackingismakingisengineering.dcma.config;
+
 import com.hackingismakingisengineering.dcma.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -80,6 +81,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 }
-
 
  */
