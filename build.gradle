@@ -47,7 +47,7 @@ dependencies {
     compile group: 'com.h2database', name: 'h2', version: '1.4.200'
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.1.RELEASE'
+    //compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.1.RELEASE'
 
 
 }
