@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <!--th:href="@{/app.css} this tells the timeleaf engine to generate a URL to the css file  -->
+    <link rel="stylesheet" th:href="@{/alta.css}"/>
+    <title>DCMA Program Checker</title>
+</head>
+<body>
+
+<div id="container">
+    <div id="main">
+        <h1>Program Details</h1>
+
+        <p th:text="${program.title}"></p>
+        <!--<small th:text="${program.string}"></small>-->
+
+
+        <!--<p th:text="${program.report.testReportsArrayList}"></p>-->
+
+
+
+
+
+
+            <table>
+                <tr>
+                    <th style="text-align:left">
+                        test
+                    </th>
+                    <th>
+                        score:threshold
+                    </th>
+
+                    <th>
+                        result
+                    </th>
+                </tr>
+
+
+                <tr th:each="testReport : ${program.report.testReportsArrayList}">
+                        <!--<a th:href="@{'/programs/' + ${program.title}}" th:text="${program.title}">program title</a>-->
+                        <td>
+                            <p th:text="${testReport.mTestName}">test report</p>
+                            <small th:text="${testReport.testDescription}">detials</small>
+                        </td>
+
+                         <td>
+                             <p th:text="${testReport.percentFailing} + ' : ' + ${testReport.testThreshold}">threshold</p>
+
+                         </td>
+
+                        <!--<td style="text-align:center" th:text="${testReport.testPassing}">test passing</a></td>-->
+
+                        <td th:style="${testReport.testPassing}==TRUE? 'background:DarkSeaGreen' : 'background:IndianRed'" th:text="${testReport.testPassing}">test passing</td>
+                </tr>
+
+            </table>
+
+            <button onclick="window.print()">print report</button>
+
+    </div>
+</div>
+
+
+    <footer id="footer">
+        <p> <a href="/upload">upload a program</a></p>
+        <p><a href="/programs">browse programs</a></p>
+        <p><a href="/categories">browse by category</a></p>
+        <p><a href="/home">home</a></p>
+    </footer>
+
+
+</body>
+</html>

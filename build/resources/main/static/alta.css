@@ -1,0 +1,49 @@
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
+
+* {
+
+
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'varela round', sans-serif;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+}
+
+#container{
+    min-height: 100%;
+
+}
+
+#main {
+    overflow: auto;
+    padding-bottom: 200px;
+}
+
+
+#footer {
+    background-color: gray;
+    postion: relative;
+
+    height: 200px;
+    margin-top: -200px;
+    margin: 0px;
+    padding: 5px;
+    clear: both;
+}
+button{
+    padding: 15px;
+    margin: 15px;
+
+}
+
+
