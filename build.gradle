@@ -25,7 +25,9 @@ jar {
 
 dependencies {
 
-    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    // Add JUnit 5 dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 
     // https://mvnrepository.com/artifact/net.sf.mpxj/mpxj
     implementation group: 'net.sf.mpxj', name: 'mpxj', version: '5.1.4'
@@ -37,6 +39,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation' // Added dependency
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     //implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.7.RELEASE'
@@ -63,7 +66,7 @@ dependencies {
 }
 
 bootJar {
-    mainClassName = 'com.hackingismakingisengineering.dcma.Application'
+    mainClass = 'com.hackingismakingisengineering.dcma.Application'
 }
 
 test {
