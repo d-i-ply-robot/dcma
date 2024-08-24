@@ -7,7 +7,9 @@ plugins {
 group 'com.hackingismakinisengineering'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility ='1.8'
+//sourceCompatibility ='1.8'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 repositories {
     mavenCentral()
@@ -32,8 +34,13 @@ dependencies {
    // implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.2.6.RELEASE'
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.7.RELEASE'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.2.7.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation' // Added dependency
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    //implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.7.RELEASE'
+    //implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.2.7.RELEASE'
 
     // https://mvnrepository.com/artifact/net.sf.mpxj/mpxj
     implementation group: 'net.sf.mpxj', name: 'mpxj', version: '8.0.8'
