@@ -18,3 +18,6 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 }
+
+//TODO
+// confirm JDK path

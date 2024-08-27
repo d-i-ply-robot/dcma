@@ -15,13 +15,7 @@ repositories {
     mavenCentral()
 }
 
-jar {
-    manifest {
-        attributes(
-            'Main-Class': 'com.hackingismakingisengineering.dcma.Application'
-        )
-    }
-}
+
 
 dependencies {
 
@@ -29,8 +23,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 
-    // https://mvnrepository.com/artifact/net.sf.mpxj/mpxj
-    implementation group: 'net.sf.mpxj', name: 'mpxj', version: '5.1.4'
 
     // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
    // implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.2.6.RELEASE'
@@ -65,8 +57,18 @@ dependencies {
     implementation group: 'com.h2database', name: 'h2', version: '1.4.200'
 }
 
+jar {
+    enabled = true
+    manifest {
+        attributes(
+            'Main-Class': 'com.hackingismakingisengineering.dcma.Application'
+        )
+    }
+}
+
 bootJar {
-    mainClass = 'com.hackingismakingisengineering.dcma.Application'
+    enabled = true
+    mainClassName = 'com.hackingismakingisengineering.dcma.Application'
 }
 
 test {
