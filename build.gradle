@@ -58,7 +58,7 @@ dependencies {
 }
 
 jar {
-    enabled = true
+    enabled = false
     manifest {
         attributes(
             'Main-Class': 'com.hackingismakingisengineering.dcma.Application'
