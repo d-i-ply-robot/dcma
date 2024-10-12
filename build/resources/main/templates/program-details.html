@@ -4,57 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/akros.css}"/>
     <title>AkrosProgramme</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        #container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0 auto;
-            padding: 20px;
-            max-width: 100%;
-        }
-        #main {
-            width: 100%;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        th:nth-child(1) {
-            width: 40%; /* Adjust this value as needed */
-        }
-        th:nth-child(2), th:nth-child(3), th:nth-child(4) {
-            width: 10%; /* Adjust this value as needed */
-        }
-        td:nth-child(1) {
-            width: 10%; /* Adjust this value as needed */
-        }
-        td:nth-child(2), td:nth-child(3), td:nth-child(4) {
-            width: 40%; /* Adjust this value as needed */
-        }
-        footer {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            margin-top: 20px;
-            padding-top: 10px;
-            border-top: 1px solid #ccc;
-        }
-        footer p {
-            margin: 0;
-        }
-    </style>
+
 </head>
 <body>
 
@@ -83,7 +33,7 @@
                     </th>
 
                     <th>
-                        failed
+                        pass/fail
                     </th>
                 </tr>
 
@@ -96,13 +46,17 @@
                         </td>
 
                          <td>
-                            <p th:text="${testReport.percentFailing} + ' : ' + ${testReport.testThreshold}">threshold</p> -
+                            <p th:text="${testReport.percentFailing != null ? #numbers.formatDecimal(testReport.percentFailing, 1) + '%' : 'N/A'} + ' : ' + ${testReport.testThreshold != null ? #numbers.formatDecimal(testReport.testThreshold, 1) + '%' : 'N/A'}">threshold</p>
                             
                         <td>
                             <ul>
                                 <li th:each="failedTask : ${testReport.mFailingTestTasks}" th:text="${failedTask}"></li>
                             </ul>
                             
+                        </td>
+
+                        <td>
+                            <p th:text="${testReport.passOrFail ? 'Pass' : 'Fail'}">pass/fail</p>
                         </td>
                 </tr>
 
