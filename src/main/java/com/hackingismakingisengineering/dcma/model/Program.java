@@ -1,9 +1,18 @@
 package com.hackingismakingisengineering.dcma.model;
 
-import com.hackingismakingisengineering.dcma.model.dcma.Report;
-import net.sf.mpxj.ProjectFile;
+import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+import com.hackingismakingisengineering.dcma.model.dcma.Report;
+
+import net.sf.mpxj.ProjectFile;
 
 @Entity //JPA annotation on POJOS for ORM
 public class Program {
@@ -25,6 +34,9 @@ public class Program {
     private String title;
     private String string;
     private int categoryId;
+    private Date statusDate;
+
+
 
     @Lob //Large object
     private byte[] bytes;
@@ -131,5 +143,13 @@ public class Program {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Date getStatusDate() {
+        return statusDate;
+    }
+    
+    public void setStatusDate(Date statusDate) {
+        this.statusDate = statusDate;
     }
 }

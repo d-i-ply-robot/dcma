@@ -9,6 +9,13 @@
             "name": "Application",
             "request": "launch",
             "mainClass": "com.hackingismakingisengineering.dcma.Application",
+            "projectName": "AkrosProgramme-dcma"
+        },
+        {
+            "type": "java",
+            "name": "Application",
+            "request": "launch",
+            "mainClass": "com.hackingismakingisengineering.dcma.Application",
             "projectName": "DCMA"
         },
         {

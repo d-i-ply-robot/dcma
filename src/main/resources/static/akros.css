@@ -43,6 +43,12 @@ main {
     margin: 0 auto;
 }
 
+h1 {
+    color: #3B4A55;
+    font-size: 48px;
+    margin-bottom: 28px;
+}
+
 h2 {
     color: #3B4A55;
     font-size: 36px;
@@ -50,6 +56,12 @@ h2 {
 }
 
 p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+li {
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 20px;

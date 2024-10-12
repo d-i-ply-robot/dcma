@@ -46,7 +46,7 @@ public class TestReport {
 
     public TestReport(String testName, ArrayList<Task> failingTestTasks, DCMATestType testType, TestThresholds threshold, int numTasks, String testDescriptor) {
         mTestName = testName;
-        //mFailingTestTasks = failingTestTasks;
+        mFailingTestTasks = failingTestTasks;
         mTestType = testType;
         mNumTasks = numTasks;
 
